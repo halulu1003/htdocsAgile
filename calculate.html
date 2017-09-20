@@ -1,0 +1,23 @@
+<html>
+<head><title></title></head>
+<body>
+<form action="test.php" target="iframe" method="post">
+<input type="text" name="first"/>
+<select name="s">
+<option value="+">+</option>
+<option value="-">-</option>
+<option value="*">*</option>
+<option value="/">/</option>
+</select>
+<input type="text" name="second" />
+<input type="submit" value="计算" />
+</form>
+
+<form action="test.php" target="iframe" method="post">
+<input type="text" name="name"/>
+<input type="text" name="password" />
+<input type="submit" value="log in" />
+</form>
+<iframe src="test.php" name="iframe" ></iframe>
+</body>
+</html>
