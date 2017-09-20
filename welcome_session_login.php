@@ -27,7 +27,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="Login">Login</a></li>
+        <li><a href="login.html">Login</a></li>
       </ul>
     </div>
   </div>
@@ -71,7 +71,7 @@ echo "<h2> <a href=\"courseList.php\">My courses</a>";
  </body>
  <footer class="container-fluid text-center">
   <a href="#myPage" title="To Top">
-    <span class="glyphicon glyphicon-chevron-up"></span>
+    <span class="glyphicon glyphicon-book logo"></span>
   </a>
   <p>Made on 2017/9/20</p>
 </footer>
