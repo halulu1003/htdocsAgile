@@ -122,6 +122,7 @@ function showRecommendedBooks($course_id,$user_id)
 	    echo "<div class=\"panel panel-default text-center\">";
         echo "<div class=\"panel-heading\">";
         echo "<h2>Recommeded Books</h2>";
+		
         echo "</div>";
 		 $bookID = $row['book_id'];
 		 //$bookID = 3;
@@ -152,7 +153,7 @@ function showRecommendedBooks($course_id,$user_id)
     </div>
   </div>
 </div>
-</h2>other book list:
+
 <?php
 showNotRecommendedBooks($courseID);
 function showNotRecommendedBooks($course_id)
@@ -169,7 +170,7 @@ function showNotRecommendedBooks($course_id)
 		echo "<div class=\"col-sm-4 col-xs-12\"> ";
 	    echo "<div class=\"panel panel-default text-center\">";
         echo "<div class=\"panel-heading\">";
-        echo "<h2>Books</h2>";
+        echo "<h2>Other Books</h2>";
         echo "</div>";
 		 $bookID = $row['book_id'];
 		 $bookName = $row['book_name'];
