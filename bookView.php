@@ -11,7 +11,7 @@ $studentId = $_SESSION['userID'];
 
 if(isset($_GET["name"]))
 {
-	echo "from get";
+	//echo "from get";
 $book=$_GET["name"];
 }
 if(isset($_GET["id"]))
@@ -24,7 +24,7 @@ $book=$_POST["name"];
 }
 if(isset($_POST["id"]))
 $bookID = $_POST['id'];
-
+echo $book;
 // $sqltest = "INSERT INTO student_books_notes (note_id, person_id, book_id, value) VALUES (NULL, 8, 71, \"haha1002\")";
 
 // echo "</br>sql test    ";
@@ -38,7 +38,7 @@ if(isset($_POST["MSG"]))
     $MSG = $_POST['MSG'];
 	echo "</br>";
 	echo "</br>";
-    echo $MSG;
+    //echo $MSG;
 	echo "</br>";
 	if($MSG != "")
 	{
@@ -46,10 +46,10 @@ if(isset($_POST["MSG"]))
 		
 		$sql = "INSERT INTO student_books_notes (note_id, person_id, book_id, value) VALUES (NULL, 8, 71, \"".$MSG."\")";
 		
-        echo $sql;		
+        //echo $sql;		
 		@mysql_query($sql)or die(" SQL failed");
-		// $successÂ =Â mysql_affected_rows();
-		// if($successÂ ===Â -1)
+		// $success = mysql_affected_rows();
+		// if($success === -1)
 		// echo"fail".mysql_error();
 		// else
 		// echo"success";
@@ -60,9 +60,9 @@ if(isset($_POST["MSG"]))
 //after delete action
 if(isset($_GET["dnid"]))
 {
-	echo "ddddddd";
+	//echo "ddddddd";
     $noteID = $_GET['dnid'];
-	echo $noteID;
+	//echo $noteID;
 	echo "</br>";
 	$sql = "DELETE FROM student_books_notes WHERE
 	note_id = $noteID";
@@ -71,23 +71,26 @@ if(isset($_GET["dnid"]))
     @mysql_query($sql)or die(" SQL failed");
 }
 
-
+/*
 echo $book;
 echo "</br>";
 echo $bookID;
 echo "</br>";
+*/
 
-showBookNotes($studentId,$bookID);
 
-function showBookNotes($student_id,$book_id)
+showBookNotes($studentId,$bookID,$book);
+
+function showBookNotes($student_id,$book_id,$book_name)
 {
+	/*
 	echo "</br>enter showBookNotes";
 	echo "</br>";
 	echo $student_id;
 	echo "</br>";
 	echo $book_id;
 	echo "</br>";
-	
+	*/
 
 	$query = @mysql_query("select * from student_books_notes")or die(" SQL failed");
 	
@@ -107,7 +110,7 @@ function showBookNotes($student_id,$book_id)
     @mysql_query($sql)or die(" SQL failed");
 	 $linkStr = "<a href='courseView.php?dbid=".$bookID."&dcid=".$course_id." '>"."delete</a>";
 	*/
-	$linkStr = "<a href='bookView.php?dnid=".$noteId." '>"."delete</a>";
+	$linkStr = "<a href='bookView.php?dnid=".$noteId."&id=".$book_id."&name=".$book_name." '>"."delete</a>";
 	
 		//$linkStr = "<a href='bookView.php?dsid = "'>verify</a>";
 		echo "</br>";
@@ -115,13 +118,6 @@ function showBookNotes($student_id,$book_id)
 	}
 	
 }
-echo "wwwwwwwwwwwwwwwwwwwwwwwwww";
-echo "</br>";
-echo "<form action=\"test.php\" target=\"iframe\" method=\"post\">
-<input type=\"text\" name=\"password\" /><br/> 
-<textarea  name=\"content\" cols=\"60\" rows=\"9\" ></textarea><br/> 
-<input type=\"submit\" value=\"log in\" />
-</form>";
 
 echo "<form method=\"POST\" action=\"bookView.php?id=".$bookID."&name=".$book."\">
 <div>
@@ -131,5 +127,6 @@ welcome adding notes
 <input type=\"submit\" value=\"add note\" />
 </div>
 </form>";
+
 
 ?>
