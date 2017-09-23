@@ -57,6 +57,21 @@ if(isset($_POST["MSG"]))
 }
 
 
+//after delete action
+if(isset($_GET["dnid"]))
+{
+	echo "ddddddd";
+    $noteID = $_GET['dnid'];
+	echo $noteID;
+	echo "</br>";
+	$sql = "DELETE FROM student_books_notes WHERE
+	note_id = $noteID";
+	
+	//echo $sql;		
+    @mysql_query($sql)or die(" SQL failed");
+}
+
+
 echo $book;
 echo "</br>";
 echo $bookID;
@@ -79,9 +94,24 @@ function showBookNotes($student_id,$book_id)
 	while($row = mysql_fetch_array($query))
 	{
 		echo "</br>";
+		echo $row['note_id'];
+		echo "</br>";
 		echo $row['value'];
 		echo "</br>";
-		
+		$noteId = $row['note_id'];
+		/*
+		$sql = "DELETE FROM recommend_courses_books WHERE
+	person_id = $userId and course_id = $courseID and book_id = $bookID";
+	
+	//echo $sql;		
+    @mysql_query($sql)or die(" SQL failed");
+	 $linkStr = "<a href='courseView.php?dbid=".$bookID."&dcid=".$course_id." '>"."delete</a>";
+	*/
+	$linkStr = "<a href='bookView.php?dnid=".$noteId." '>"."delete</a>";
+	
+		//$linkStr = "<a href='bookView.php?dsid = "'>verify</a>";
+		echo "</br>";
+        echo $linkStr."</br>";
 	}
 	
 }
