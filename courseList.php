@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>courses</title>
+  <title>Courses</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -28,7 +28,9 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="login.html">Login</a></li>
-		   <li><a href="courseList.php">Courses</a></li>
+		   <li><a href="coursesList.php">CoursesList</a></li>
+		   <li><a href="courseView.php">Courses</a></li>
+		   <li><a href="bookView.php">Notes</a></li>
       </ul>
     </div>
   </div>
@@ -58,7 +60,7 @@ or die("data base selected failed");
 $query = @mysql_query("select person_id, course_id from person_courses where person_id = 8 ")or die("SQL failed");
 
 echo "<h2>db success</br></br>";
-echo "<h4>".$_SESSION['username'];
+echo "<h4>".$_SESSION['username']."</h4>";
 
 $studentID = $_SESSION['userID'];
 
@@ -98,7 +100,7 @@ while($row = mysql_fetch_array($query))
 	//echo "</br>";
 	//$linkStr = "<a href='bookView.php?id=".$bookID."&name=".$bookName." '>".$res['book_name'];
 	    echo "<div class=\"panel-body\">";
-	$courseLink = "<h2><a href='courseView.php?id=".$courseID."&name=".$courseName." '>".$courseName."</a>";
+	$courseLink = "<h2><a href='courseView.php?id=".$courseID."&name=".$courseName." '>".$courseName."</a></h2>";
 	echo $courseLink;
 	echo "</div>";
 	//$example = "<a href='bookView.php?id=19 '>click me to jump</a>";
