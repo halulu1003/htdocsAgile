@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>welcom</title>
+  <title>Welcom</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -65,15 +65,15 @@ if($row = mysql_fetch_array($query))
 		$_SESSION['userID'] = $row['ID'];
 		
 		if($row['userflag'] == 0)
-		    echo "<h4> Welcome you, administrator~~ ";
+		    echo "<h4> Welcome you, administrator~~ </h4>";
 	    else if($row['userflag'] == 1)
-		    echo "<h4> Welcome you, lecturer~~ ";
+		    echo "<h4> Welcome you, lecturer~~ </h4>";
 	    else if($row['userflag'] == 2)
-		    echo "<h4> Welcome you, student~~ ";
+		    echo "<h4> Welcome you, student~~ </h4>";
 	  
           echo "</br><p><a href='welcome_session_login.php'>www.cnblogs.com/txw1958</a><p>";
     }else{
-        echo "<h4>userflag不正确";
+        echo "<h4>userflag不正确</h4>";
     }
 
 }else{

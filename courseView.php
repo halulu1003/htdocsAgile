@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>courses</title>
+  <title>CoursesView</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -28,7 +28,9 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="login.html">Login</a></li>
-		   <li><a href="courseList.php">Courses</a></li>
+		   <li><a href="coursesList.php">CoursesList</a></li>
+		   <li><a href="courseView.php">Courses</a></li>
+		   <li><a href="bookView.php">Notes</a></li>
       </ul>
     </div>
   </div>
