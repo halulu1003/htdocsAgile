@@ -174,7 +174,7 @@ function showBookNotes($student_id,$book_id,$book_name)
 <div class="container-fluid bg-grey">
   <div class="row">
     <div class="col-sm-4">
-      <span class="glyphicon glyphicon-globe logo slideanim"></span>
+      <span class="glyphicon glyphicon-globe logo slideanim"></span> 
     </div>
     <div class="col-sm-8">
 <?php
