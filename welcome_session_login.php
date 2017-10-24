@@ -2,16 +2,17 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Welcom</title>
+  <title>Welcome</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <link rel="stylesheet" type="text/css" href="style.css">
- <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript" src="script.js"></script>
 </head> 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
@@ -23,22 +24,19 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#myPage">Comston Online Study Hub</a>
+      <a class="navbar-brand" href="#myPage">FreshTreasure Online Study Hub</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="login.html">Login</a></li>
-		   <li><a href="coursesList.php">CoursesList</a></li>
-		   <li><a href="courseView.php">Courses</a></li>
-		   <li><a href="bookView.php">Notes</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
 <div class="jumbotron text-center">
-  <h1>Comston Online Study Hub</h1> 
-  <p>Welcome to our Study Hub</p> 
+  <h1>FreshTreasure Online Study Hub</h1> 
+  <p>Welcome to FreshTreasure Study Hub</p> 
 </div>
 
 <!-- Container (Login Section) -->
@@ -49,8 +47,9 @@
 session_start();
 if(isset($_SESSION['username']))
 {
+    echo " ".$_SESSION['userID']." ";
     if($_SESSION['userflag'] == 0)
-        echo "<h4>Welcome administrator    ".$_SESSION['username']."   login </h4>";
+        echo "<h4>Welcome administrator    ".$_SESSION['username']."   login</h4>";
     if($_SESSION['userflag'] == 1)
         echo "<h4>Welcome lecture    ".$_SESSION['username']."   login</h4>";
     if($_SESSION['userflag'] == 2)
@@ -58,11 +57,22 @@ if(isset($_SESSION['username']))
 	}
 else
 {
-    echo "<h4>ERROR";
+    echo "<h4>ERROR! You are not authorized to log in this application!</h4>";
 }
+echo "<h3> <a href='destroy_session_login.php'>Log out now</a> </h3>";
 
-echo "</br></br></br>";
-echo "<h2> <a href=\"courseList.php\">My courses</a></h2>";
+if($_SESSION['userflag'] > 0)
+{
+    echo "</br></br></br>";
+    echo "<h2> <a href=\"courseList.php\">My courses</a></h2>";
+}
+else
+{
+	echo "</br></br></br>";
+    echo "<h2> <a href=\"assignCourses.php\">Assign courses</a></h2>";
+	echo "</br></br></br>";
+    echo "<h2> <a href=\"showMySql.php\">manage db</a>";
+}
 
 ?>
     </div>
@@ -71,11 +81,13 @@ echo "<h2> <a href=\"courseList.php\">My courses</a></h2>";
     </div>
   </div>
 </div>  
- </body>
+
  <footer class="container-fluid text-center">
   <a href="#myPage" title="To Top">
     <span class="glyphicon glyphicon-book logo"></span>
   </a>
-  <p>Made on 2017/9/20</p>
+  <p>Made on 2017/10/16</p>
 </footer>
+
+</body>
 </html>
