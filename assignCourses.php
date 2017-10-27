@@ -1,3 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Notes</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ <link rel="stylesheet" type="text/css" href="style.css">
+ <script type="text/javascript" src="script.js"></script>
+</head> 
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#myPage">Comston Online Study Hub</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="login.html">Login</a></li>
+		   <li><a href="coursesList.php">CoursesList</a></li>
+		   <li><a href="courseView.php">Courses</a></li>
+		   <li><a href="bookView.php">Notes</a></li>
+		   <li><a href="assignCourses.php">CoursesAssign</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="jumbotron text-center">
+  <h1>Comston Online Study Hub</h1> 
+  <p>Welcome to our Study Hub</p> 
+</div>
+
 <?php
 //include("courseList.php");
 
@@ -61,6 +105,11 @@ function showAllcourses()
 	$query = @mysql_query($sql)or die("SQL failed");
     while($row = mysql_fetch_array($query))
     {
+		echo "<div class=\"col-sm-4 col-xs-12\"> ";
+	echo "<div class=\"panel panel-default text-center\">";
+    echo "<div class=\"panel-heading\">";
+    echo "<h2>Courses</h2>";
+    echo "</div>";
 		echo "</br>";
 		echo $row['course_name'];
 		$courseID = $row['course_id'];
@@ -69,6 +118,8 @@ function showAllcourses()
 		echo "</br></br>other lecturers";
 		showNotAssignedLecturers($courseID);
 	    echo "</br>---------------------------------------------------------";
+			echo "</div>";
+	echo "</div>";
 	}
 }
 
@@ -110,6 +161,7 @@ function showNotAssignedLecturers($course_id)
 	$query = @mysql_query($sql)or die("SQL failed");
     while($row = mysql_fetch_array($query))
     {
+		
 		$lectureID = $row['ID'];
 		echo "</br>";
 		//<INPUT TYPE="radio" NAME="Candy" VALUE="Snickers">Snickers<BR>
@@ -124,3 +176,13 @@ function showNotAssignedLecturers($course_id)
 }
 
 ?>
+ </body>
+
+ 
+ <footer class="container-fluid text-center col-sm-8">
+  <a href="#myPage" title="To Top">
+    <span class="glyphicon glyphicon-chevron-up"></span>
+  </a>
+  <p>Made on 2017/9/20</p>
+</footer>
+</html>
