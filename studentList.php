@@ -48,18 +48,32 @@
 //include('connect.php');
 //include('loginchg.php');
 
+require_once('connectDB.php');
+$mysqli = initPermanentConnection();
+
+
 session_start();
 
+/*
 @mysql_connect("localhost","root",'')
 or die("data base connected failed");
 @mysql_select_db("yx")
 or die("data base selected failed");
+*/
+
+
 
 //$userId = $_SESSION['userID'];
 $studentID = $_SESSION['userID'];
 $userFlag = $_SESSION['userflag'];
 
-$query = @mysql_query("select person_id, course_id from person_courses where person_id = $studentID ")or die("SQL failed");
+$sql = "select person_id, course_id from person_courses where person_id = $studentID ";
+
+echo $sql."</br>";
+
+$query = $mysqli->query($sql) or die("SQL execuation fails.");
+
+//$query = @mysql_query("select person_id, course_id from person_courses where person_id = $studentID ")or die("SQL failed");
 
 echo "<h2>db success</br></br>";
 echo "<h4>".$_SESSION['username'];
@@ -92,7 +106,9 @@ if(isset($_GET["rbid"]))
 		$sql = "INSERT INTO student_courses_books (person_id, course_id, book_id) VALUES (".$userId.", ".$courseID.", ".$bookID.")";
 	}	
 	echo $sql;		
-    @mysql_query($sql)or die(" SQL failed");
+    //@mysql_query($sql)or die(" SQL failed");
+	$query = $mysqli->query($sql) or die("SQL execuation fails.");
+
 }
 
 if(isset($_GET["dcid"]))
@@ -119,7 +135,9 @@ if(isset($_GET["dbid"]))
 		person_id = $userId and course_id = $courseID and book_id = $bookID";
 	}
 	echo $sql;		
-    @mysql_query($sql)or die(" SQL failed");
+    //@mysql_query($sql)or die(" SQL failed");
+	$query = $mysqli->query($sql) or die("SQL execuation fails.");
+
 }
 
 
@@ -136,8 +154,8 @@ if(isset($_GET["dbid"]))
 echo "</br></br></br>";
 echo "<h2> <a href=\"courseList.php\">My courses</a></h2>";
 
-
-while($row = mysql_fetch_array($query))
+while($row = mysqli_fetch_array($query))
+//while($row = mysql_fetch_array($query))
 {
 	echo "<div class=\"col-sm-4 col-xs-12\"> ";
 	echo "<div class=\"panel panel-default text-center\">";
@@ -149,9 +167,12 @@ while($row = mysql_fetch_array($query))
 	//echo $row['course_id'];
     $courseID = $row['course_id'];
 
-	$subQuery = @mysql_query("select course_name from courses where course_id = $courseID ")or die("SQL failed");
+	//$subQuery = @mysql_query("select course_name from courses where course_id = $courseID ")or die("SQL failed");
+	$subQuery = $mysqli->query("select course_name from courses where course_id = $courseID ")or die("SQL failed");
 	
-	$res = mysql_fetch_array($subQuery);
+	//$res = mysql_fetch_array($subQuery);
+	$res = mysqli_fetch_array($subQuery);
+	
 	echo "</br>";
 	//echo $res['course_name'];
 	
@@ -182,11 +203,11 @@ while($row = mysql_fetch_array($query))
 	*/
 }	
 
-showStudentEnrolled($courseID);
+showStudentEnrolled($courseID, $mysqli);
 
-showStudentNotEnrolled($courseID);
+showStudentNotEnrolled($courseID, $mysqli);
 
-function showStudentEnrolled($course_id)
+function showStudentEnrolled($course_id,$sqlHandle)
 {
 	$sql = "select users.ID, users.username from person_courses,  users where
 	users.ID = person_courses.person_id
@@ -195,9 +216,11 @@ function showStudentEnrolled($course_id)
     echo "</br>";
 	echo $sql;
 	
-	$query = @mysql_query($sql)or die("SQL failed");
-	
-	while($row = mysql_fetch_array($query))
+	//$query = @mysql_query($sql)or die("SQL failed");
+	$query = $sqlHandle->query($sql) or die("SQL execuation fails.");
+
+	//while($row = mysql_fetch_array($query))
+	while($row = mysqli_fetch_array($query))
 	{
 		echo "<div class=\"col-sm-4 col-xs-12\"> ";
 	    echo "<div class=\"panel panel-default text-center\">";
@@ -220,7 +243,7 @@ function showStudentEnrolled($course_id)
 
 }
 
-function showStudentNotEnrolled($course_id)
+function showStudentNotEnrolled($course_id,$sqlHandle)
 {
 	
     echo "</br>";
@@ -244,9 +267,11 @@ function showStudentNotEnrolled($course_id)
     echo "</br>";
 	echo $sql;
 	
-	$query = @mysql_query($sql)or die("SQL failed");
-	
-	while($row = mysql_fetch_array($query))
+	//$query = @mysql_query($sql)or die("SQL failed");
+	$query = $sqlHandle->query($sql) or die("SQL execuation fails.");
+
+	//while($row = mysql_fetch_array($query))
+	while($row = mysqli_fetch_array($query))
 	{
 		echo "<div class=\"col-sm-4 col-xs-12\"> ";
 	    echo "<div class=\"panel panel-default text-center\">";
