@@ -2,16 +2,18 @@
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>courses</title>
+  <title>Students</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Lato">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
- <link rel="stylesheet" type="text/css" href="style.css">
- <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript" src="script.js"></script>
 </head> 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
 
@@ -23,7 +25,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#myPage">Comston Online Study Hub</a>
+      <a class="navbar-brand" href="#myPage">FreshTreasure Online Study Hub</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -35,8 +37,8 @@
 </nav>
 
 <div class="jumbotron text-center">
-  <h1>Comston Online Study Hub</h1> 
-  <p>Welcome to our Study Hub</p> 
+  <h1>FreshTreasure Online Study Hub</h1> 
+  <p>Welcome to FreshTreasure Study Hub</p> 
 </div>
 <!-- Container (Login Section) -->
 <div id="Login" class="container-fluid">
@@ -74,14 +76,13 @@ echo $sql."</br>";
 $query = $mysqli->query($sql) or die("SQL execuation fails.");
 
 //$query = @mysql_query("select person_id, course_id from person_courses where person_id = $studentID ")or die("SQL failed");
-
 echo "<h2>db success</br></br>";
 echo "<h4>".$_SESSION['username'];
 
 
 echo "</br></br>";
 $courseID = 0;
-//if($row = mysql_fetch_array($query))
+//if($row = mysqli_fetch_array($query))
 //echo $row[1];
 
 //after recommend action
@@ -107,8 +108,7 @@ if(isset($_GET["rbid"]))
 	}	
 	echo $sql;		
     //@mysql_query($sql)or die(" SQL failed");
-	$query = $mysqli->query($sql) or die("SQL execuation fails.");
-
+    $query = $mysqli->query($sql) or die("SQL execuation fails.");
 }
 
 if(isset($_GET["dcid"]))
@@ -134,10 +134,9 @@ if(isset($_GET["dbid"]))
 		$sql = "DELETE FROM student_courses_books  WHERE
 		person_id = $userId and course_id = $courseID and book_id = $bookID";
 	}
-	echo $sql;		
+	echo $sql;
     //@mysql_query($sql)or die(" SQL failed");
-	$query = $mysqli->query($sql) or die("SQL execuation fails.");
-
+    $query = $mysqli->query($sql) or die("SQL execuation fails.");
 }
 
 
@@ -154,8 +153,8 @@ if(isset($_GET["dbid"]))
 echo "</br></br></br>";
 echo "<h2> <a href=\"courseList.php\">My courses</a></h2>";
 
+
 while($row = mysqli_fetch_array($query))
-//while($row = mysql_fetch_array($query))
 {
 	echo "<div class=\"col-sm-4 col-xs-12\"> ";
 	echo "<div class=\"panel panel-default text-center\">";
@@ -172,7 +171,6 @@ while($row = mysqli_fetch_array($query))
 	
 	//$res = mysql_fetch_array($subQuery);
 	$res = mysqli_fetch_array($subQuery);
-	
 	echo "</br>";
 	//echo $res['course_name'];
 	
@@ -212,9 +210,11 @@ function showStudentEnrolled($course_id,$sqlHandle)
 	$sql = "select users.ID, users.username from person_courses,  users where
 	users.ID = person_courses.person_id
 	and
-	person_courses.course_id = $course_id";
-    echo "</br>";
-	echo $sql;
+	person_courses.course_id = $course_id
+	and
+	users.userflag = 2";
+    //echo "</br>";
+	//echo $sql;
 	
 	//$query = @mysql_query($sql)or die("SQL failed");
 	$query = $sqlHandle->query($sql) or die("SQL execuation fails.");
@@ -249,14 +249,10 @@ function showStudentNotEnrolled($course_id,$sqlHandle)
     echo "</br>";
 	echo "showStudentNotEnrolled";
 	echo "</br>";
-	
-	$sql = "select users.ID, users.username from person_courses,  users where
-	users.ID = person_courses.person_id
+
+	$sql = "select users.ID, users.username , users.userflag from users where
+	users.userflag = 2
 	and
-	person_courses.course_id = $course_id";
-	
-	
-	$sql = "select users.ID, users.username from users where
 	users.ID not in
 	(
 	    select person_courses.person_id from person_courses
@@ -264,8 +260,8 @@ function showStudentNotEnrolled($course_id,$sqlHandle)
 	)
 	";
 	
-    echo "</br>";
-	echo $sql;
+    //echo "</br>";
+	//echo $sql;
 	
 	//$query = @mysql_query($sql)or die("SQL failed");
 	$query = $sqlHandle->query($sql) or die("SQL execuation fails.");
@@ -301,18 +297,20 @@ function showCourseBooks($student_id,$course_id)
 	//echo "</br>$course_id";
     // $query = @mysql_query("select book_id from student_courses_books where student_id = 8 and course_id = 7 ")or die(" SQL failed");
 	
-	$query = @mysql_query("select book_id from student_courses_books where person_id = $student_id and course_id = $course_id")or die(" SQL failed");
-
-	while($row = mysql_fetch_array($query))
+	////$query = @mysql_query("select book_id from student_courses_books where person_id = $student_id and course_id = $course_id")or die(" SQL failed");
+	$sql="select book_id from student_courses_books where person_id = $student_id and course_id = $course_id";
+	$query = $mysqli->query($sql) or die("SQL execuation fails.");
+	while($row = mysqli_fetch_array($query))
 	{
 		echo "</br>";
 		//echo $row['book_id'];
 		
 		$bookID = $row['book_id'];
 		
-		$subQuery = @mysql_query("select book_name from books where book_id = $bookID ")or die("SQL failed");
-	
-	    $res = mysql_fetch_array($subQuery);
+		//$subQuery = @mysql_query("select book_name from books where book_id = $bookID ")or die("SQL failed");
+		$sql="select book_name from books where book_id = $bookID";
+		$subQuery = $mysqli->query($sql) or die("SQL execuation fails.");
+	    $res = mysqli_fetch_array($subQuery);
 	    //echo "</br>";
 	    //echo $res['book_name'];
 		$bookName = $res['book_name'];
@@ -336,10 +334,11 @@ function showCourseBooks($student_id,$course_id)
       //    <h4>per month</h4>
          // <button class="btn btn-lg">Sign Up</button>
      //   </div>
+$subQuery->close();
+$query->close();
+mysqli_close();
 ?>
          
- </body>
-
  
  <footer class="container-fluid text-center col-sm-8">
   <a href="#myPage" title="To Top">
@@ -347,4 +346,5 @@ function showCourseBooks($student_id,$course_id)
   </a>
   <p>Made on 2017/9/20</p>
 </footer>
+ </body>
 </html>

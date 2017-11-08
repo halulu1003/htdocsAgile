@@ -56,19 +56,19 @@ $mysqli = initPermanentConnection();
 session_start();
 $userId = $_SESSION['userID'];
 $userFlag = $_SESSION['userflag'];
-echo "user flag</br>";
+//echo "user flag</br>";
 //echo $course;
 
 if(isset($_GET["name"]))
 {
 	$course=$_GET["name"];
-	echo $course;
+	//echo $course;
 	$_SESSION['courseName'] = $course;
 }
 if(isset($_GET["id"]))
 {
     $courseID = $_GET['id'];
-    echo $courseID;
+    //echo $courseID;
 }
 
 //after recommend action
@@ -82,8 +82,8 @@ if(isset($_GET["rbid"]))
 {
 	//echo "rrrrrrrrr";
     $bookID = $_GET['rbid'];
-	echo $bookID;
-	echo "</br>";
+	//echo $bookID;
+	//echo "</br>";
 	if($userFlag == 1)
 	{
 	    $sql = "INSERT INTO recommend_courses_books (person_id, course_id, book_id) VALUES (".$userId.", ".$courseID.", ".$bookID.")";
@@ -92,7 +92,7 @@ if(isset($_GET["rbid"]))
     {
 		$sql = "INSERT INTO student_courses_books (person_id, course_id, book_id) VALUES (".$userId.", ".$courseID.", ".$bookID.")";
 	}	
-	echo $sql;		
+	//echo $sql;		
     //@mysql_query($sql)or die(" SQL failed");
     $query = $mysqli->query($sql) or die("SQL execuation fails.");
 }
@@ -108,9 +108,9 @@ if(isset($_GET["dbid"]))
 {
 	//echo "ddddddd";
     $bookID = $_GET['dbid'];
-	echo $bookID;
+	//echo $bookID;
 	//$sql = "INSERT INTO recommend_courses_books (person_id, course_id, book_id) VALUES (".$userId.", ".$courseID.", ".$bookID.")";
-    echo "</br>";
+    //echo "</br>";
 	if($userFlag == 1)
 	{
 		$sql = "DELETE FROM recommend_courses_books WHERE person_id = $userId and course_id = $courseID and book_id = $bookID";
@@ -119,7 +119,7 @@ if(isset($_GET["dbid"]))
 	{
 		$sql = "DELETE FROM student_courses_books  WHERE person_id = $userId and course_id = $courseID and book_id = $bookID";
 	}
-	echo $sql;		
+	//echo $sql;		
     //@mysql_query($sql)or die(" SQL failed");
     $query = $mysqli->query($sql) or die("SQL execuation fails.");
 }
@@ -139,7 +139,7 @@ if($userFlag == 1)
 else
 {
 	$rList = getRecommendedBooksSet($courseID,1,$mysqli);
-    echo $rList;
+    //echo $rList;
 	getSelectedBooks($courseID,$userId,$rList,$mysqli);
 }
 	echo "</br>";
@@ -148,11 +148,10 @@ function getRecommendedBooksSet($course_id,$user_id,$sqlHandle)
 {
 	$sql = "select books0923.book_id,books0923.book_name from recommend_courses_books, books0923 
 	where books0923.book_id = recommend_courses_books.book_id 
-	and recommend_courses_books.person_id = $user_id 
 	and	recommend_courses_books.course_id = $course_id";
 
-    echo "</br>";
-	echo $sql;
+    //echo "</br>";
+	//echo $sql;
 	
 	//$query = @mysql_query($sql)or die("SQL failed");
 	$query = $sqlHandle->query($sql) or die("SQL execuation fails.");
@@ -161,20 +160,20 @@ function getRecommendedBooksSet($course_id,$user_id,$sqlHandle)
 	
 	while($row = mysqli_fetch_array($query))
 	{
-		echo $row['book_id'];
+		//echo $row['book_id'];
 		$recmList[$index] = $row['book_id'];
 		$index++;
 	}
 	
-	print_r($recmList);
+	//print_r($recmList);
 	return $recmList;
 }
 
 function getSelectedBooks($course_id,$user_id,$highlightSet,$sqlHandle)
 {
-	echo "</br>";
-	echo "getSelectedBooks";
-	echo "</br>";
+	//echo "</br>";
+	//echo "getSelectedBooks";
+	//echo "</br>";
 	/*
 	$sql = "select books0923.book_id,books0923.book_name from recommend_courses_books, books0923 where 
 	books0923.book_id = recommend_courses_books.book_id
@@ -186,8 +185,8 @@ function getSelectedBooks($course_id,$user_id,$highlightSet,$sqlHandle)
 	
 	$sql = "select books0923.book_id,books0923.book_name from student_courses_books, books0923 where books0923.book_id = student_courses_books.book_id and student_courses_books.person_id = $user_id and student_courses_books.course_id = $course_id";
 
-    echo "</br>";
-	echo $sql;
+    //echo "</br>";
+	//echo $sql;
 	
 	//$query = @mysql_query($sql)or die("SQL failed");
 	$query = $sqlHandle->query($sql) or die("SQL execuation fails.");
@@ -207,9 +206,9 @@ function getSelectedBooks($course_id,$user_id,$highlightSet,$sqlHandle)
 
 function getUnSelectedBooks($course_id,$user_id,$highlightSet,$sqlHandle)
 {
-	echo "</br>";
-	echo "getUnSelectedBooks";
-	echo "</br>";
+	//echo "</br>";
+	//echo "getUnSelectedBooks";
+	//echo "</br>";
 	/*
 	$sql = "select books0923.book_id,books0923.book_name from recommend_courses_books, books0923 where 
 	books0923.book_id = recommend_courses_books.book_id
@@ -226,9 +225,9 @@ function getUnSelectedBooks($course_id,$user_id,$highlightSet,$sqlHandle)
 		and course_id = $course_id
 	)";
     
-	echo "</br>";
-	echo $sql;
-	echo "</br>";
+	//echo "</br>";
+	//echo $sql;
+	//echo "</br>";
 	
 	//$query = @mysql_query($sql)or die("SQL failed");
 	$query = $sqlHandle->query($sql) or die("SQL execuation fails.");
@@ -276,7 +275,7 @@ function listQueryRes($query,$lable,$action,$course_id,$highlightSet)
 	}
 }
 
-function showRecommendedBooks($course_id,$sqlHandle)
+function showRecommendedBooks($course_id,$user_id,$sqlHandle)
 {
 	/*
 	$sql = "select books0923.book_id,books0923.book_name from recommend_courses_books , books0923 where 
@@ -335,12 +334,12 @@ $sql = "select books0923.book_id,books0923.book_name from recommend_courses_book
 
 <?php
 if($userFlag == 1)
-    showNotRecommendedBooks($courseID);
+    showNotRecommendedBooks($courseID,$mysqli);
 else
     //getUnSelectedBooks($courseID,);    
 getUnSelectedBooks($courseID,$userId,$rList,$mysqli);
 
-function showNotRecommendedBooks($course_id)
+function showNotRecommendedBooks($course_id,$sqlHandle)
 {
 	/*
 	$sql = "select books0923.book_id,books0923.book_name from recommend_courses_books, books0923 where 
@@ -364,11 +363,11 @@ function showNotRecommendedBooks($course_id)
 		recommend_courses_books.course_id = $course_id
 	)";
 	
-    echo "</br>";
-	echo $sql;
+    //echo "</br>";
+	//echo $sql;
 	
 	//$query = @mysql_query($sql)or die("SQL failed");
-	$query = $mysqli->query($sql) or die("SQL execuation fails.");
+	$query = $sqlHandle->query($sql) or die("SQL execuation fails.");
 	while($row = mysqli_fetch_array($query))
 	{
 		echo "<div class=\"col-sm-4 col-xs-12\"> ";
@@ -404,7 +403,7 @@ function show()
 echo "</div>";
 echo "</div>";
 
-$query->close();
+//$query->close();
 mysqli_close();
 ?>
 

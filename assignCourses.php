@@ -29,10 +29,6 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="login.html">Login</a></li>
-		   <li><a href="coursesList.php">CoursesList</a></li>
-		   <li><a href="courseView.php">Courses</a></li>
-		   <li><a href="bookView.php">Notes</a></li>
-		   <li><a href="assignCourses.php">CoursesAssign</a></li>
       </ul>
     </div>
   </div>
@@ -43,6 +39,10 @@
   <p>Welcome to FreshTreasure Study Hub</p> 
 </div>
 
+<!-- Container (Login Section) -->
+<div id="Login" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8"><br>
 <?php
 //include("courseList.php");
 
@@ -60,25 +60,26 @@ $mysqli = initPermanentConnection();
 
 
 $studentId = $_SESSION['userID'];
-//echo $studentId;
+ 
+//echo "userID = ".$studentId;
 	echo "</br>";
 
 if(isset($_POST["acid"]))
 {
     $courseID=$_POST["acid"];
-    echo $courseID;
-	echo "</br>";
+    //echo $courseID;
+	//echo "</br>";
 
 	if(isset($_POST["lecturer"]))
     {
         $lectureID = $_POST['lecturer'];
-        echo $lectureID;
-		echo "</br>";
+        //echo $lectureID;
+		//echo "</br>";
 		
 		$sql = "INSERT INTO person_courses (person_id, course_id) VALUES (".$lectureID.",".$courseID.")";
 		
-		echo "</br>";
-        echo $sql;
+		//echo "</br>";
+        //echo $sql;
 		
 		//@mysql_query($sql)or die(" SQL failed");
 		$query = $mysqli->query($sql) or die("SQL execuation fails.");
@@ -90,24 +91,28 @@ if(isset($_POST["acid"]))
 if(isset($_GET["dcid"]))
 {
 	$courseID=$_GET["dcid"];
-    echo $courseID;
-	echo "</br>";
+    //echo $courseID;
+	//echo "</br>";
 
 	if(isset($_GET["dlid"]))
 	{
 		$lectureID = $_GET['dlid'];
-        echo $lectureID;
-		echo "</br>";
+        //echo $lectureID;
+		//echo "</br>";
 		
 		$sql = "DELETE FROM person_courses WHERE
     	person_id = $lectureID and course_id = $courseID";
  
-	    echo $sql;		
+	    //echo $sql;
+	    
         //@mysql_query($sql)or die(" SQL failed");
 		$query = $mysqli->query($sql) or die("SQL execuation fails.");
-
 	}
 }
+
+echo "</br></br></br>";
+    echo "<h2> <a href=\"welcome_session_login.php\">return to welcome</a></h2>";
+
 showAllcourses($mysqli);
 
 function showAllcourses($sqlHandle)
@@ -149,7 +154,7 @@ function showAssignedLecturers($course_id,$sqlHandle)
 
 	//while($row = mysql_fetch_array($query))
     while($row = mysqli_fetch_array($query))
-		{
+    {
 		$lectureID = $row['ID'];
 		echo "</br>";
 		echo $row['username'];
@@ -181,7 +186,6 @@ function showNotAssignedLecturers($course_id, $sqlHandle)
 	//while($row = mysql_fetch_array($query))
     while($row = mysqli_fetch_array($query))
     {
-		
 		$lectureID = $row['ID'];
 		echo "</br>";
 		//<INPUT TYPE="radio" NAME="Candy" VALUE="Snickers">Snickers<BR>
@@ -194,15 +198,22 @@ function showNotAssignedLecturers($course_id, $sqlHandle)
 	echo "</br><input type=\"submit\"/></br>";
 	echo "</form>";
 }
-
+//$result->close();
+//$query->close();
+mysqli_close();
 ?>
- </body>
-
- 
- <footer class="container-fluid text-center col-sm-8">
+    </div>
+    <div class="col-sm-4">
+      <span class="glyphicon glyphicon-book logo"></span>
+    </div>
+  </div>
+</div> 
+ <footer class="container-fluid text-center">
   <a href="#myPage" title="To Top">
     <span class="glyphicon glyphicon-chevron-up"></span>
   </a>
-  <p>Made on 2017/9/20</p>
-</footer>
+  <p>Made on 2017/10/16</p>
+</footer> 
+
+</body>
 </html>
